@@ -1,0 +1,31 @@
+{
+  "name": "@hexlet/code",
+  "version": "1.0.0",
+  "description": "[![Actions Status](https://github.com/Shao-Lin/frontend-project-46/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/Shao-Lin/frontend-project-46/actions)",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@eslint/create-config": "^1.0.0",
+    "@eslint/eslintrc": "^3.1.0",
+    "@eslint/js": "^9.6.0",
+    "eslint": "^8.57.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-jsx-a11y": "^6.9.0",
+    "eslint-plugin-react": "^7.34.3",
+    "eslint-plugin-react-hooks": "^4.6.2",
+    "globals": "^15.8.0",
+    "prettier": "3.3.2"
+  },
+  "bin": {
+    "gendiff": "./gendiff.js"
+  },
+  "dependencies": {
+    "commander": "^12.1.0"
+  }
+}
