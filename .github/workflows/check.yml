@@ -34,10 +34,15 @@ jobs:
           curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-reporter
           chmod +x ./cc-reporter
 
+      - name: Show environment info
+        run: env
+
       - name: Test & publish code coverage
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
         run: |
+          set -x
           ./cc-reporter before-build
           make test-coverage
           ./cc-reporter after-build --exit-code $?
+          set +x
