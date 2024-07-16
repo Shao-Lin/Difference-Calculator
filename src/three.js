@@ -40,7 +40,7 @@ const formatDiff = (arr) => {
       }
     })
     .join('\n');
-  return result;
+  return `{\n${result}\n}`;
 };
 
 const gendiff = (filepath1, filepath2) => {
