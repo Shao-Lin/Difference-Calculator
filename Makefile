@@ -1,7 +1,7 @@
 install:
 	npm ci
-start_even:
-	node bin/brain-even.js
+run:
+	bin/gendiff.js
  publish:
 	npm publish --dry-run
 lint:

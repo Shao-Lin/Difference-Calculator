@@ -1,48 +1,31 @@
 # Name of workflow
-name: Node CI
-
-on:
-  push:
-  pull_request:
-
-env:
-  CI: true
-
+# file: .github/workflows/hello-world.yml
+name: check project 2
+# on – определяет события, которые запускают воркфлоу
+on: push
 jobs:
+  # build – произвольно выбранное имя задания
+  # их может быть больше одного
   build:
+    # операционная система для работы воркфлоу
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [20.x]
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: 'npm'
-
+    steps: # список шагов, которые надо выполнить
+      # экшен — выполняет какую-то задачу
+      # checkout — клонирует репозиторий
+      - uses: actions/checkout@v3
+      # run – произвольная bash-команда
+      # ls -la выведет содержимое текущего репозитория
       - run: make install
       - run: make lint
-      - run: make test
-
-      - name: Download and Install Code Climate Reporter
-        run: |
-          curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-reporter
-          chmod +x ./cc-reporter
-
-      - name: Show environment info
-        run: env
-
+      - run: npm run test
+      - run: npm test -- --coverage --coverageProvider=v8
       - name: Test & publish code coverage
+        # Publish code coverage on Code Climate
+        # https://github.com/paambaati/codeclimate-action
+        uses: paambaati/codeclimate-action@v4.0.0
+        # Add Code Climate secret key
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
-        run: |
-          set -x
-          ./cc-reporter before-build
-          make test-coverage
-          ./cc-reporter after-build --exit-code $?
-          set +x
+        with:
+          coverageCommand: make test-coverage
+          debug: true;
