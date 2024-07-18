@@ -1,6 +1,18 @@
-import path from 'path';
 import _ from 'lodash';
+import path from 'path';
 import fs from 'fs';
+
+const getExtention = (filename) => {
+  const splitName = filename.split('.');
+  const extention = splitName.slice(-1);
+  const result = extention[0];
+  return result;
+};
+const readFile = (filepath) => {
+  const fullPath = path.resolve(process.cwd(), filepath);
+  const result = fs.readFileSync(fullPath, 'utf-8');
+  return result;
+};
 
 const compareAndSort = (obj1, obj2) => {
   const unionObj = { ...obj1, ...obj2 };
@@ -43,13 +55,4 @@ const formatDiff = (arr) => {
   return `{\n${result}\n}`;
 };
 
-const gendiff = (filepath1, filepath2) => {
-  const fullPath1 = path.resolve(process.cwd(), filepath1);
-  const fullPath2 = path.resolve(process.cwd(), filepath2);
-  const obj1 = JSON.parse(fs.readFileSync(fullPath1));
-  const obj2 = JSON.parse(fs.readFileSync(fullPath2));
-  const objWithType = compareAndSort(obj1, obj2);
-  const stringify = formatDiff(objWithType);
-  return stringify;
-};
-export default gendiff;
+export { compareAndSort, formatDiff, getExtention, readFile };
