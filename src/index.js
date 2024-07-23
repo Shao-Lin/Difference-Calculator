@@ -1,4 +1,5 @@
-import { formatDiff, compareAndSort, readFile, getExtention } from './utils.js';
+import { compareAndSort, readFile, getExtention } from './utils.js';
+import formatDiff from './formatters/stylish.js';
 import parseFile from './parsers.js';
 
 const gendiff = (filepath1, filepath2) => {

@@ -1,12 +1,12 @@
 import yaml from 'js-yaml';
 
-const parseFile = (fullPath, extention) => {
+const parseFile = (strContent, extention) => {
   switch (extention) {
     case 'json':
-      return JSON.parse(fullPath);
+      return JSON.parse(strContent);
     case 'yml':
     case 'yaml':
-      return yaml.load(fullPath);
+      return yaml.load(strContent);
     default:
       throw new Error('The extension is not supported');
   }
