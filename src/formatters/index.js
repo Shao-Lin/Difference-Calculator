@@ -1,10 +1,14 @@
 import formatDiff from './stylish.js';
+import getPlain from './plain.js';
 
-export default makeFormat = (objWithType, formatName = 'stylish') => {
+const makeFormat = (objWithType, formatName) => {
   switch (formatName) {
     case 'stylish':
       return formatDiff(objWithType);
+    case 'plain':
+      return getPlain(objWithType);
     default:
       throw new Error('Output format is not correct');
   }
 };
+export default makeFormat;

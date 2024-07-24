@@ -51,6 +51,8 @@ const formatDiff = (arr) => {
           return `${specialIndent}+ ${obj.key}: ${keyValue(obj.value)}`;
         case 'changed':
           return `${specialIndent}- ${obj.key}: ${keyValue(obj.oldValue)}\n${specialIndent}+ ${obj.key}: ${keyValue(obj.value)}`;
+        case 'nested':
+          return `${baseIndent}${obj.key}: {\n${iter(obj.children, level + 1)}\n${baseIndent}}`;
         case 'unchanged':
           return `${baseIndent}${obj.key}: ${keyValue(obj.value)}`;
         default:

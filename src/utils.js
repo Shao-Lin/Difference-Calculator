@@ -20,24 +20,28 @@ const compareAndSort = (obj1, obj2) => {
     const sortedKeys = _.sortBy(Object.keys(unionObj));
 
     const arr = sortedKeys.map((key) => {
-      const obj = { key, value: unionObj[key], level };
+      const obj = { key, level };
       if (Object.hasOwn(o1, key) && !Object.hasOwn(o2, key)) {
         obj.type = 'deleted';
+        obj.value = o1[key];
       } else if (!Object.hasOwn(o1, key) && Object.hasOwn(o2, key)) {
         obj.type = 'added';
+        obj.value = o2[key];
       } else if (
         typeof o1[key] === 'object' &&
         typeof o2[key] === 'object' &&
         o1[key] !== null &&
         o2[key] !== null
       ) {
-        obj.type = 'unchanged';
-        obj.value = iter(o1[key], o2[key], level + 1);
+        obj.type = 'nested';
+        obj.children = iter(o1[key], o2[key], level + 1);
       } else if (o1[key] !== o2[key]) {
         obj.type = 'changed';
         obj.oldValue = o1[key];
+        obj.value = o2[key];
       } else {
         obj.type = 'unchanged';
+        obj.value = o1[key];
       }
       return obj;
     });
