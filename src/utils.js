@@ -19,33 +19,52 @@ const compareAndSort = (obj1, obj2) => {
     const unionObj = { ...o1, ...o2 };
     const sortedKeys = _.sortBy(Object.keys(unionObj));
 
-    const arr = sortedKeys.map((key) => {
-      const obj = { key, level };
+    return sortedKeys.map((key) => {
       if (Object.hasOwn(o1, key) && !Object.hasOwn(o2, key)) {
-        obj.type = 'deleted';
-        obj.value = o1[key];
-      } else if (!Object.hasOwn(o1, key) && Object.hasOwn(o2, key)) {
-        obj.type = 'added';
-        obj.value = o2[key];
-      } else if (
+        return {
+          key,
+          type: 'deleted',
+          value: o1[key],
+          level,
+        };
+      }
+      if (!Object.hasOwn(o1, key) && Object.hasOwn(o2, key)) {
+        return {
+          key,
+          type: 'added',
+          value: o2[key],
+          level,
+        };
+      }
+      if (
         typeof o1[key] === 'object' &&
-        typeof o2[key] === 'object' &&
         o1[key] !== null &&
+        typeof o2[key] === 'object' &&
         o2[key] !== null
       ) {
-        obj.type = 'nested';
-        obj.children = iter(o1[key], o2[key], level + 1);
-      } else if (o1[key] !== o2[key]) {
-        obj.type = 'changed';
-        obj.oldValue = o1[key];
-        obj.value = o2[key];
-      } else {
-        obj.type = 'unchanged';
-        obj.value = o1[key];
+        return {
+          key,
+          type: 'nested',
+          children: iter(o1[key], o2[key], level + 1),
+          level,
+        };
       }
-      return obj;
+      if (o1[key] !== o2[key]) {
+        return {
+          key,
+          type: 'changed',
+          oldValue: o1[key],
+          value: o2[key],
+          level,
+        };
+      }
+      return {
+        key,
+        type: 'unchanged',
+        value: o1[key],
+        level,
+      };
     });
-    return arr;
   };
   return iter(obj1, obj2, 1);
 };
