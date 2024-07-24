@@ -7,7 +7,7 @@ const makeFormat = (objWithType, formatName = 'stylish') => {
       return formatDiff(objWithType);
     case 'plain':
       return getPlain(objWithType);
-    case 'JSON':
+    case 'json':
       return JSON.stringify(objWithType);
     default:
       throw new Error('Output format is not correct');
