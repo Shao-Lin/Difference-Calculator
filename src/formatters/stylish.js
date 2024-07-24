@@ -9,24 +9,25 @@ const stringify = (data, replacer = ' ', spacesCount = 4, level = 0) => {
     }
 
     if (typeof data2 === 'string') {
-      return data2;
+      return data2; // Чтобы строки были корректно экранированы
     }
 
     if (typeof data2 === 'object') {
       const keys = Object.keys(data2);
-      const keyValues = keys.reduce((result, key) => {
+      const keyValues = keys.map(key => {
         const keyValue = iter(data2[key], level2 + 1);
         if (keyValue !== undefined) {
           const before = replacer.repeat((level2 + 1) * spacesCount);
-          result.push(`${before}${key}: ${keyValue}`);
+          return `${before}${key}: ${keyValue}`;
         }
-        return result;
-      }, []);
+        return '';
+      }).filter(keyValue => keyValue !== ''); // Убираем пустые строки
+
       const indent = replacer.repeat(level2 * spacesCount);
       return `{\n${keyValues.join('\n')}\n${indent}}`;
     }
 
-    return undefined; // For functions and undefined
+    return undefined; // Для функций и undefined
   };
 
   return iter(data, level);

@@ -36,12 +36,7 @@ const compareAndSort = (obj1, obj2) => {
           level,
         };
       }
-      if (
-        typeof o1[key] === 'object' &&
-        o1[key] !== null &&
-        typeof o2[key] === 'object' &&
-        o2[key] !== null
-      ) {
+      if (typeof o1[key] === 'object' && typeof o2[key] === 'object') {
         return {
           key,
           type: 'nested',
