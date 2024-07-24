@@ -24,8 +24,8 @@ describe('Stylish json', () => {
 });
 describe('Stylish yaml', () => {
   test('genDiff with different files', () => {
-    const filepath1 = getFixturePath('file1.yaml');
-    const filepath2 = getFixturePath('file2.yaml');
+    const filepath1 = getFixturePath('file1.yml');
+    const filepath2 = getFixturePath('file2.yml');
     const expectedFilePath = getFixturePath('expectedStylish.txt');
 
     const expectedOutput = readFile(expectedFilePath);
