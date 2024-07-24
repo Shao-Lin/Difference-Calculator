@@ -1,7 +1,7 @@
 import formatDiff from './stylish.js';
 import getPlain from './plain.js';
 
-const makeFormat = (objWithType, formatName) => {
+const makeFormat = (objWithType, formatName = 'stylish') => {
   switch (formatName) {
     case 'stylish':
       return formatDiff(objWithType);
