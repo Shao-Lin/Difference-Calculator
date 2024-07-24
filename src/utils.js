@@ -8,10 +8,10 @@ const getExtention = (filename) => {
   const result = extention[0];
   return result;
 };
-const readFile = (filepath) => {
-  const fullPath = path.resolve(process.cwd(), filepath);
-  const stringContentOfTheFile = fs.readFileSync(fullPath, 'utf-8');
-  return stringContentOfTheFile;
+const readFile = (filePath) => {
+  const dirName = process.cwd(filePath);
+  const fullPath = path.resolve(dirName, filePath);
+  return fs.readFileSync(fullPath, 'utf-8');
 };
 
 const compareAndSort = (obj1, obj2) => {
