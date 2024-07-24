@@ -46,3 +46,15 @@ describe('Plain', () => {
     expect(result).toBe(expectedOutput);
   });
 });
+describe('JSON', () => {
+  test('genDiff with different files', () => {
+    const filepath1 = getFixturePath('file1.json');
+    const filepath2 = getFixturePath('file2.json');
+    const expectedFilePath = getFixturePath('expectedJSON.txt');
+
+    const expectedOutput = readFile(expectedFilePath);
+    const result = genDiff(filepath1, filepath2, 'JSON');
+
+    expect(result).toBe(expectedOutput);
+  });
+});
